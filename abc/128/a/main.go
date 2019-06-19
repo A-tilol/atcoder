@@ -71,20 +71,6 @@ func max(a, b int) int {
 	return b
 }
 
-func minInt64(a, b int64) int64 {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func maxInt64(a, b int64) int64 {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func abs(a int) int {
 	if a > 0 {
 		return a
@@ -93,12 +79,6 @@ func abs(a int) int {
 }
 
 // sort ------------------------------------------------------------
-
-type int64Array []int64
-
-func (s int64Array) Len() int           { return len(s) }
-func (s int64Array) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
 
 type xxx struct {
 	x int
@@ -113,7 +93,7 @@ func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
 // -----------------------------------------------------------------
 
 func main() {
-	// n:= readInt()
-
-	fmt.Println()
+	a := readInt()
+	p := readInt()
+	fmt.Println((a*3 + p) / 2)
 }

@@ -71,20 +71,6 @@ func max(a, b int) int {
 	return b
 }
 
-func minInt64(a, b int64) int64 {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func maxInt64(a, b int64) int64 {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func abs(a int) int {
 	if a > 0 {
 		return a
@@ -93,12 +79,6 @@ func abs(a int) int {
 }
 
 // sort ------------------------------------------------------------
-
-type int64Array []int64
-
-func (s int64Array) Len() int           { return len(s) }
-func (s int64Array) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
 
 type xxx struct {
 	x int
@@ -112,8 +92,49 @@ func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
 
 // -----------------------------------------------------------------
 
-func main() {
-	// n:= readInt()
+func df(i, n int, on []int) {
+	if i == n {
+		for i := range S {
+			cnt := 0
+			for j := range S[i] {
+				if on[S[i][j]-1] == 1 {
+					cnt++
+				}
+			}
+			if cnt%2 != P[i] {
+				return
+			}
+		}
+		ans++
+		return
+	}
+	df(i+1, n, append(on, 0))
+	df(i+1, n, append(on, 1))
+}
 
-	fmt.Println()
+var ans int
+var S [][]int
+var P []int
+
+func main() {
+	n := readInt()
+	m := readInt()
+
+	S = make([][]int, m)
+	for i := range S {
+		k := readInt()
+		S[i] = make([]int, k)
+		for j := range S[i] {
+			S[i][j] = readInt()
+		}
+	}
+
+	P = make([]int, m)
+	for i := range P {
+		P[i] = readInt()
+	}
+
+	df(0, n, make([]int, 0, n))
+
+	fmt.Println(ans)
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -71,14 +72,7 @@ func max(a, b int) int {
 	return b
 }
 
-func minInt64(a, b int64) int64 {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func maxInt64(a, b int64) int64 {
+func max64(a, b int64) int64 {
 	if a > b {
 		return a
 	}
@@ -94,12 +88,6 @@ func abs(a int) int {
 
 // sort ------------------------------------------------------------
 
-type int64Array []int64
-
-func (s int64Array) Len() int           { return len(s) }
-func (s int64Array) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
-
 type xxx struct {
 	x int
 }
@@ -112,8 +100,55 @@ func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
 
 // -----------------------------------------------------------------
 
-func main() {
-	// n:= readInt()
+type int64arr []int64
 
-	fmt.Println()
+func (s int64arr) Len() int           { return len(s) }
+func (s int64arr) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
+func (s int64arr) Less(i, j int) bool { return s[i] < s[j] }
+
+func calc(l, r, e int64) int64 {
+	a := make([]int64, 0, n)
+	a = append(a, V[:l]...)
+	a = append(a, V[n-r:]...)
+	sort.Sort(int64arr(a))
+	var ans int64
+	for _, v := range a[e:] {
+		ans += v
+	}
+	return ans
 }
+
+var V []int64
+var n int64
+
+func main() {
+	n = readInt64()
+	k := readInt64()
+	V = make([]int64, n)
+	for i := range V {
+		V[i] = readInt64()
+	}
+
+	var kk, i, j, l, r, ans int64
+	for kk = 0; kk <= k; kk++ {
+		for i = kk; i > 0; i-- {
+			if i > n {
+				continue
+			}
+			j = kk - i
+			if j > i {
+				break
+			}
+			for l = 0; l <= i; l++ {
+				r = i - l
+				ans = max64(ans, calc(l, r, j))
+			}
+		}
+	}
+	fmt.Println(ans)
+}
+
+/*
+6 10
+-10 8 2 1 2 6
+*/
