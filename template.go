@@ -86,10 +86,41 @@ func maxInt64(a, b int64) int64 {
 }
 
 func abs(a int) int {
-	if a > 0 {
-		return a
+	if a < 0 {
+		return -a
 	}
-	return -a
+	return a
+}
+
+func absInt64(a int64) int64 {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
+
+func sum(a []int) int {
+	var ret int
+	for i := range a {
+		ret += a[i]
+	}
+	return ret
+}
+
+func sumInt64(a []int64) int64 {
+	var ret int64
+	for i := range a {
+		ret += a[i]
+	}
+	return ret
+}
+
+func sumFloat64(a []float64) float64 {
+	var ret float64
+	for i := range a {
+		ret += a[i]
+	}
+	return ret
 }
 
 // sort ------------------------------------------------------------
