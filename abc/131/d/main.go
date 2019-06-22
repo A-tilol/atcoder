@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -123,17 +124,6 @@ func sumFloat64(a []float64) float64 {
 	return ret
 }
 
-func gcdInt64(m, n int64) int64 {
-	for m%n != 0 {
-		m, n = n, m%n
-	}
-	return n
-}
-
-func lcmInt64(m, n int64) int64 {
-	return m / gcdInt64(m, n) * n
-}
-
 // sort ------------------------------------------------------------
 
 type int64Array []int64
@@ -143,19 +133,37 @@ func (s int64Array) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
 func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
 
 type xxx struct {
-	x int
+	a int64
+	b int64
 }
 
 type sortArray []xxx
 
 func (s sortArray) Len() int           { return len(s) }
 func (s sortArray) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
+func (s sortArray) Less(i, j int) bool { return s[i].b < s[j].b }
 
 // -----------------------------------------------------------------
 
 func main() {
-	// n:= readInt()
+	n := readInt()
+	x := make(sortArray, n)
+	for i := 0; i < n; i++ {
+		x[i] = xxx{
+			a: readInt64(),
+			b: readInt64(),
+		}
+	}
+	sort.Sort(x)
 
-	fmt.Println()
+	var t int64
+	for i := range x {
+		t += x[i].a
+		if t > x[i].b {
+			fmt.Println("No")
+			return
+		}
+	}
+
+	fmt.Println("Yes")
 }

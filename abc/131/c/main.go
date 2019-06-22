@@ -123,17 +123,6 @@ func sumFloat64(a []float64) float64 {
 	return ret
 }
 
-func gcdInt64(m, n int64) int64 {
-	for m%n != 0 {
-		m, n = n, m%n
-	}
-	return n
-}
-
-func lcmInt64(m, n int64) int64 {
-	return m / gcdInt64(m, n) * n
-}
-
 // sort ------------------------------------------------------------
 
 type int64Array []int64
@@ -155,7 +144,34 @@ func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
 // -----------------------------------------------------------------
 
 func main() {
-	// n:= readInt()
+	a := readInt64()
+	b := readInt64()
+	c := readInt64()
+	d := readInt64()
 
-	fmt.Println()
+	var ans int64
+	e := lcm(c, d)
+	ans = (b/c - a/c) + (b/d - a/d) - (b/e - a/e)
+	if a%c == 0 {
+		ans++
+	}
+	if a%d == 0 {
+		ans++
+	}
+	if a%e == 0 {
+		ans--
+	}
+
+	fmt.Println((b - a + 1) - ans)
+}
+
+func lcm(m, n int64) int64 {
+	return m * n / gcd(m, n)
+}
+
+func gcd(m, n int64) int64 {
+	for m%n != 0 {
+		m, n = n, m%n
+	}
+	return n
 }

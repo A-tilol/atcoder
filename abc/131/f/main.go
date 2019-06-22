@@ -123,17 +123,6 @@ func sumFloat64(a []float64) float64 {
 	return ret
 }
 
-func gcdInt64(m, n int64) int64 {
-	for m%n != 0 {
-		m, n = n, m%n
-	}
-	return n
-}
-
-func lcmInt64(m, n int64) int64 {
-	return m / gcdInt64(m, n) * n
-}
-
 // sort ------------------------------------------------------------
 
 type int64Array []int64
