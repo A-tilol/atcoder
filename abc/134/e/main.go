@@ -154,8 +154,35 @@ func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
 
 // -----------------------------------------------------------------
 
-func main() {
-	// n:= readInt()
+func binarySearch(colors []int64, num int64) int {
+	lo, hi := 0, len(colors)-1
+	for lo < hi {
+		mid := (lo + hi) / 2
+		if colors[mid] <= num {
+			lo = mid + 1
+		} else {
+			hi = mid
+		}
+	}
+	return lo
+}
 
-	fmt.Println()
+func main() {
+	n := readInt()
+	a := make([]int64, n)
+	for i := range a {
+		a[n-1-i] = readInt64()
+	}
+
+	colors := make([]int64, 0, n)
+	for i := range a {
+		idx := binarySearch(colors, a[i])
+		if len(colors) == 0 || colors[idx] <= a[i] {
+			colors = append(colors, a[i])
+		} else {
+			colors[idx] = a[i]
+		}
+	}
+
+	fmt.Println(len(colors))
 }
