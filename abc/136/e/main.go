@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -154,8 +155,67 @@ func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
 
 // -----------------------------------------------------------------
 
-func main() {
-	// n:= readInt()
+/*
+正の整数nの約数を列挙する
+*/
+func listDivisor(n int) []int {
+	var ret []int
+	for i := 1; i*i <= n; i++ {
+		if n%i == 0 {
+			ret = append(ret, i)
+			if n/i != i {
+				ret = append(ret, n/i)
+			}
+		}
+	}
+	return ret
+}
 
-	fmt.Println()
+func main() {
+	n, k := readInt(), readInt()
+
+	sum := 0
+	a := make([]int, n)
+	for i := range a {
+		a[i] = readInt()
+		sum += a[i]
+	}
+
+	divisors := listDivisor(sum)
+	sort.Sort(sort.Reverse(sort.IntSlice(divisors)))
+	// fmt.Println(divisors)
+
+	for i := range divisors {
+		b := make([]int, n)
+		for j := range a {
+			b[j] = a[j] % divisors[i]
+		}
+		sort.Ints(b)
+		// fmt.Println("b:", b)
+
+		r, l := 0, n-1
+		plus, minus := 0, 0
+		for r <= l {
+			if max(plus, minus) > k {
+				plus, minus = 0, 1
+				break
+			}
+			if plus < minus {
+				// fmt.Printf("+%v", divisors[i]-b[l])
+				plus += divisors[i] - b[l]
+				l--
+			} else {
+				// fmt.Printf("-%v", b[r])
+				minus += b[r]
+				r++
+			}
+		}
+		// fmt.Println()
+		// fmt.Printf("divisors: %v, plus: %v, minus: %v\n", divisors[i], plus, minus)
+
+		if plus == minus && plus <= k {
+			fmt.Println(divisors[i])
+			return
+		}
+	}
 }
