@@ -8,6 +8,26 @@ import (
 	"strconv"
 )
 
+func main() {
+	n := readInt()
+
+	fmt.Println(n)
+}
+
+// sort ------------------------------------------------------------
+
+type xxx struct {
+	x int
+}
+
+type sortArray []xxx
+
+func (s sortArray) Len() int           { return len(s) }
+func (s sortArray) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
+func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
+
+// -----------------------------------------------------------------
+
 var (
 	readString func() string
 	readBytes  func() []byte
@@ -71,28 +91,7 @@ func max(a, b int) int {
 	return b
 }
 
-func minInt64(a, b int64) int64 {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func maxInt64(a, b int64) int64 {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func abs(a int) int {
-	if a < 0 {
-		return -a
-	}
-	return a
-}
-
-func absInt64(a int64) int64 {
 	if a < 0 {
 		return -a
 	}
@@ -107,14 +106,6 @@ func sum(a []int) int {
 	return ret
 }
 
-func sumInt64(a []int64) int64 {
-	var ret int64
-	for i := range a {
-		ret += a[i]
-	}
-	return ret
-}
-
 func sumFloat64(a []float64) float64 {
 	var ret float64
 	for i := range a {
@@ -123,39 +114,13 @@ func sumFloat64(a []float64) float64 {
 	return ret
 }
 
-func gcdInt64(m, n int64) int64 {
+func gcd(m, n int) int {
 	for m%n != 0 {
 		m, n = n, m%n
 	}
 	return n
 }
 
-func lcmInt64(m, n int64) int64 {
-	return m / gcdInt64(m, n) * n
-}
-
-// sort ------------------------------------------------------------
-
-type int64Array []int64
-
-func (s int64Array) Len() int           { return len(s) }
-func (s int64Array) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
-
-type xxx struct {
-	x int
-}
-
-type sortArray []xxx
-
-func (s sortArray) Len() int           { return len(s) }
-func (s sortArray) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
-
-// -----------------------------------------------------------------
-
-func main() {
-	// n:= readInt()
-
-	fmt.Println()
+func lcm(m, n int) int {
+	return m / gcd(m, n) * n
 }
