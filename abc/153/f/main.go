@@ -10,6 +10,7 @@ import (
 	"strconv"
 )
 
+// algorithm: 尺取り法, 累積和
 func main() {
 	n, d, a := readInt(), readInt(), readInt()
 	m := make([]xxx, n)
@@ -46,9 +47,7 @@ func main() {
 	fmt.Println(ans)
 }
 
-/*
-TLE after_contest_01
-*/
+// TLE after_contest_01
 func main1() {
 	n, d, a := readInt(), readInt(), readInt()
 	m := make([]xxx, n)

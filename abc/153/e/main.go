@@ -9,6 +9,7 @@ import (
 	"strconv"
 )
 
+// algorithm: dp
 func main() {
 	h, n := readInt(), readInt()
 	a, b := make([]int, n), make([]int, n)
