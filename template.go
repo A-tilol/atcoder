@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"strconv"
 )
@@ -34,6 +35,7 @@ var (
 )
 
 func init() {
+	log.SetFlags(log.Lshortfile)
 	readString, readBytes = newReadString(os.Stdin)
 }
 
