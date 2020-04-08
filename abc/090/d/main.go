@@ -11,11 +11,22 @@ import (
 
 func main() {
 	n, k := readInt(), readInt()
+
+	if k == 0 {
+		fmt.Println(n * n)
+		return
+	}
+
 	ans := 0
-	for i := k + 1; i < n+1; i++ {
-		ans += max(0, i-1-k+1)
-		if k+i <= n {
-			ans += n / i
+	for b := 1; b <= n; b++ {
+		if b-1 < k {
+			continue
+		}
+		ans += n / b * (b - 1 - k + 1)
+		// fmt.Println("b:", b, ", cnt:", n/b*(b-1-k+1))
+		if n%b >= k {
+			ans += n%b - k + 1
+			// fmt.Println(n%b - k + 1)
 		}
 	}
 	fmt.Println(ans)
