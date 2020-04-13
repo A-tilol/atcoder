@@ -1,13 +1,14 @@
 #!/bin/bash
 set -eu
 
-if [ $# -ne 2 ]; then
-    echo "specify the contest_name and the nubmer"
+if [ $# -ne 3 ]; then
+    echo "specify the contest name, the contest nubmer and the number of tasks"
     exit 1
 fi
 
 contest_name=$1
 contest_number=$2
+task_num=$3
 
 cd `dirname $0`
 cwd=`pwd`
@@ -24,9 +25,13 @@ if [ -e ${number_dir} ]; then
 fi
 mkdir ${number_dir}
 
-tasks=("a" "b" "c" "d" "e" "f")
-for task in ${tasks[@]}
+tasks=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l")
+for i in ${!tasks[@]}
 do
-    mkdir "${number_dir}/${task}"
-    cp ${cwd}/template.go ${number_dir}/${task}/main.go
+    if [ $i -ge $task_num ]; then
+        break
+    fi
+    mkdir "${number_dir}/${tasks[$i]}"
+    cp ${cwd}/template.go ${number_dir}/${tasks[$i]}/main.go
 done
+
