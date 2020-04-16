@@ -28,6 +28,8 @@ var k = int(1e5*2 + 1)
 var inv = make([]int, k)
 var comb = make([]int, k)
 
+// combination
+//   condition: about n >= 1e8, k <= 1e7
 func initComb() {
 	inv[1] = 1
 	for i := 2; i < k; i++ {
@@ -40,6 +42,7 @@ func initComb() {
 	}
 }
 
+// algorithm: 繰り返し2乗法, combination
 func main() {
 	n = readInt()
 	a, b := readInt(), readInt()
