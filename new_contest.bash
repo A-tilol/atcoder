@@ -25,7 +25,7 @@ if [ -e ${number_dir} ]; then
 fi
 mkdir ${number_dir}
 
-tasks=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l")
+tasks=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z")
 for i in ${!tasks[@]}
 do
     if [ $i -ge $task_num ]; then
