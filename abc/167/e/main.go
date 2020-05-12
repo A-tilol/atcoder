@@ -15,6 +15,7 @@ var fac = make([]int, nmax)
 var inv = make([]int, nmax)
 var finv = make([]int, nmax)
 
+// inverse element, 逆元
 func initComb() {
 	fac[0], fac[1] = 1, 1
 	finv[0], finv[1] = 1, 1
@@ -27,6 +28,7 @@ func initComb() {
 	}
 }
 
+// 繰り返し2乗法
 func powMod(x, i int) int {
 	if i == 0 {
 		return 1
@@ -49,6 +51,7 @@ func main() {
 
 	ans := 0
 	for i := 0; i <= k; i++ {
+		// m * (m-1)^(n-i-1) * kHn-i-1
 		ans += m * powMod(m-1, n-i-1) % mod * fac[n-1] % mod * finv[n-i-1] % mod * finv[i] % mod
 		ans %= mod
 	}
