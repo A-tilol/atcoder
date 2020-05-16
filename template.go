@@ -15,20 +15,6 @@ func main() {
 	fmt.Println(n)
 }
 
-// sort ------------------------------------------------------------
-
-type xxx struct {
-	x int
-}
-
-type sortArray []xxx
-
-func (s sortArray) Len() int           { return len(s) }
-func (s sortArray) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-func (s sortArray) Less(i, j int) bool { return s[i].x < s[j].x }
-
-// -----------------------------------------------------------------
-
 var (
 	readString func() string
 	readBytes  func() []byte
@@ -59,16 +45,16 @@ func newReadString(ior io.Reader) (func() string, func() []byte) {
 	return f1, f2
 }
 
-func readInt() int {
-	return int(readInt64())
-}
-
 func readInt64() int64 {
 	i, err := strconv.ParseInt(readString(), 10, 64)
 	if err != nil {
 		panic(err.Error())
 	}
 	return i
+}
+
+func readInt() int {
+	return int(readInt64())
 }
 
 func readFloat64() float64 {
