@@ -9,11 +9,43 @@ import (
 	"strconv"
 )
 
-var mat = make(map[int][]int)
-
+// algorithm: bfs
 func main() {
 	n, m := readInt(), readInt()
 
+	mat := make([][]int, n)
+	for i := 0; i < m; i++ {
+		a, b := readInt()-1, readInt()-1
+		mat[a] = append(mat[a], b)
+		mat[b] = append(mat[b], a)
+	}
+
+	q := make([]int, 0, n)
+	q = append(q, 0)
+	ans := make([]int, n)
+	ans[0] = -1
+	for len(q) > 0 {
+		cur := q[0]
+		q = q[1:]
+		for _, next := range mat[cur] {
+			if ans[next] != 0 {
+				continue
+			}
+			ans[next] = cur + 1
+			q = append(q, next)
+		}
+	}
+
+	fmt.Println("Yes")
+	for i := 1; i < n; i++ {
+		fmt.Println(ans[i])
+	}
+}
+
+func main0() {
+	n, m := readInt(), readInt()
+
+	mat := make(map[int][]int)
 	for i := 0; i < m; i++ {
 		a, b := readInt(), readInt()
 		if _, ok := mat[a]; !ok {
