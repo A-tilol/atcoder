@@ -36,6 +36,20 @@ int read_double()
     return a;
 }
 
+char read_char()
+{
+    char c;
+    scanf("%c", &c);
+    return c;
+}
+
+int read_double()
+{
+    double a;
+    scanf("%lf", &a);
+    return a;
+}
+
 int main()
 {
     return 0;
