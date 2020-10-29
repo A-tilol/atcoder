@@ -15,34 +15,28 @@ func main() {
 	fmt.Println(n)
 }
 
-var (
-	readString func() string
-	readBytes  func() []byte
-)
+var readString func() string
 
 func init() {
 	log.SetFlags(log.Lshortfile)
-	readString, readBytes = newReadString(os.Stdin)
+	readString = newReadString(os.Stdin)
 }
 
-func newReadString(ior io.Reader) (func() string, func() []byte) {
+func newReadString(ior io.Reader) func() string {
 	r := bufio.NewScanner(ior)
 	r.Buffer(make([]byte, 1024), int(1e+11))
 	r.Split(bufio.ScanWords)
 
-	f1 := func() string {
+	return func() string {
 		if !r.Scan() {
 			panic("Scan failed")
 		}
 		return r.Text()
 	}
-	f2 := func() []byte {
-		if !r.Scan() {
-			panic("Scan failed")
-		}
-		return r.Bytes()
-	}
-	return f1, f2
+}
+
+func readBytes() []byte {
+	return []byte(readString())
 }
 
 func readInt64() int64 {
