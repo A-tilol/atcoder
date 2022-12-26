@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"os"
 	"strconv"
 )
@@ -51,6 +52,14 @@ func readInt() int {
 	return int(readInt64())
 }
 
+func readInts(n int) []int {
+	arr := make([]int, n)
+	for i := range arr {
+		arr[i] = readInt()
+	}
+	return arr
+}
+
 func readFloat64() float64 {
 	f, err := strconv.ParseFloat(readString(), 64)
 	if err != nil {
@@ -59,18 +68,32 @@ func readFloat64() float64 {
 	return f
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
+func readFloat64s(n int) []float64 {
+	arr := make([]float64, n)
+	for i := range arr {
+		arr[i] = readFloat64()
 	}
-	return b
+	return arr
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
+func min(a ...int) int {
+	x := math.MaxInt64
+	for i := range a {
+		if x > a[i] {
+			x = a[i]
+		}
 	}
-	return b
+	return x
+}
+
+func max(a ...int) int {
+	x := math.MinInt64
+	for i := range a {
+		if x < a[i] {
+			x = a[i]
+		}
+	}
+	return x
 }
 
 func abs(a int) int {
