@@ -16,6 +16,9 @@ func main() {
 	n := readInt() * 2
 	ans := 0
 	for i := 1; i <= int(math.Sqrt(float64(n))); i++ {
+		if n%i != 0 {
+			continue
+		}
 		q := n / i
 		if i%2 == 0 && q%2 == 0 {
 			continue
