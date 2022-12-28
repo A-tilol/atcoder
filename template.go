@@ -11,16 +11,18 @@ import (
 )
 
 func main() {
-	n := readInt()
+	debug.logging = true
 
-	fmt.Println(n)
+	fmt.Println()
 }
 
 var readString func() string
+var debug *debugLogger
 
 func init() {
 	log.SetFlags(log.Lshortfile)
 	readString = newReadString(os.Stdin)
+	debug = newDebugLogger(true)
 }
 
 func newReadString(ior io.Reader) func() string {
@@ -128,4 +130,30 @@ func gcd(m, n int) int {
 
 func lcm(m, n int) int {
 	return m / gcd(m, n) * n
+}
+
+type debugLogger struct {
+	logging bool
+}
+
+func newDebugLogger(logging bool) *debugLogger {
+	return &debugLogger{logging: logging}
+}
+
+func (d *debugLogger) print(args ...interface{}) {
+	if d.logging {
+		log.Print(args...)
+	}
+}
+
+func (d *debugLogger) printf(format string, args ...interface{}) {
+	if d.logging {
+		log.Printf(format, args...)
+	}
+}
+
+func (d *debugLogger) println(args ...interface{}) {
+	if d.logging {
+		log.Println(args...)
+	}
 }
