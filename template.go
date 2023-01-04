@@ -7,6 +7,7 @@ import (
 	"log"
 	"math"
 	"os"
+	"runtime"
 	"strconv"
 )
 
@@ -142,18 +143,23 @@ func newDebugLogger(logging bool) *debugLogger {
 
 func (d *debugLogger) print(args ...interface{}) {
 	if d.logging {
-		log.Print(args...)
+		fmt.Print(args...)
 	}
 }
 
 func (d *debugLogger) printf(format string, args ...interface{}) {
 	if d.logging {
-		log.Printf(format, args...)
+		_, _, line, _ := runtime.Caller(1)
+		format = fmt.Sprintf("(l%d) ", line) + format
+		fmt.Printf(format, args...)
 	}
 }
 
 func (d *debugLogger) println(args ...interface{}) {
 	if d.logging {
-		log.Println(args...)
+		_, _, line, _ := runtime.Caller(1)
+		format := fmt.Sprintf("(l%d)", line)
+		args = append([]interface{}{format}, args...)
+		fmt.Println(args...)
 	}
 }
