@@ -2,7 +2,7 @@
 set -eu
 
 if [ $# -lt 3 ]; then
-    echo "specify the contest name, the contest nubmer and the number of tasks"
+    echo "specify the contest name, the contest nubmer, the number of tasks and lang(option)."
     exit 1
 fi
 
