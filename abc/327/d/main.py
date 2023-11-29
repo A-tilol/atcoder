@@ -39,4 +39,40 @@ def get_logger(debug=True) -> logging.Logger:
 
 
 # -------------------------------
-log = get_logger(True)
+log = get_logger(False)
+
+N, M = read_ints()
+a = read_ints()
+b = read_ints()
+
+ad = [set() for _ in range(N)]
+for i in range(M):
+    ad[a[i] - 1].add(b[i] - 1)
+    ad[b[i] - 1].add(a[i] - 1)
+
+
+def dfs(i, t):
+    log.debug((i, t, types))
+    if types[i] != 0 and types[i] != t:
+        return False
+    if types[i] != 0:
+        return True
+    types[i] = t
+
+    for ni in ad[i]:
+        if not dfs(ni, t * -1):
+            return False
+
+    return True
+
+
+types = [0] * N
+for i in range(N):
+    if types[i] != 0:
+        continue
+
+    log.debug(i)
+    if not dfs(i, 1):
+        print("No")
+        exit()
+print("Yes")

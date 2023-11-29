@@ -39,4 +39,11 @@ def get_logger(debug=True) -> logging.Logger:
 
 
 # -------------------------------
-log = get_logger(True)
+log = get_logger(False)
+
+b = read_int()
+for i in range(1, 18):
+    if i**i == b:
+        print(i)
+        exit()
+print(-1)
