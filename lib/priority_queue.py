@@ -5,9 +5,10 @@ class Item:
 
 
 class PriorityQueue:
-    def __init__(self):
+    def __init__(self, Descending=True):
         self.id_to_ind = {}
         self.q = []
+        self.desc = Descending
 
     def push(self, item: Item):
         self.update(item)
@@ -25,8 +26,8 @@ class PriorityQueue:
         while ind != 0:
             p_ind = (ind - 1) // 2
             # !!! Sort Conditions !!!
-            if self.q[p_ind].v > self.q[ind].v or (
-                self.q[p_ind].v == self.q[ind].v and self.q[p_ind].id < self.q[ind].id
+            if (self.desc and self.q[p_ind].v >= self.q[ind].v) or (
+                not self.desc and self.q[p_ind].v <= self.q[ind].v
             ):
                 break
 
@@ -36,37 +37,41 @@ class PriorityQueue:
 
             ind = p_ind
 
-    # def pop(self):
-    #     item = self.q[0]
-    #     del self.id_to_ind[item.id]
+    def pop(self):
+        if len(self.q) == 0:
+            return None
 
-    #     self.q[0] = self.q[len(self.q) - 1]
-    #     self.id_to_ind[self.q[0].id] = 0
-    #     self.q.pop()
+        item = self.q[0]
+        del self.id_to_ind[item.id]
 
-    #     ind = 0
-    #     while ind >= len(self.q):
-    #         c_ind1 = 2 * ind + 1
-    #         c_ind2 = 2 * ind + 2
-    #         c_ind = None
-    #         # !!! Sort Conditions !!!
-    #         if self.q[c_ind1].v > self.q[c_ind2]:
-    #             c_ind = c_ind1
-    #         else:
-    #             c_ind = c_ind2
+        self.q[0] = self.q[len(self.q) - 1]
+        self.id_to_ind[self.q[0].id] = 0
+        self.q.pop()
 
-    #         # !!! Sort Conditions !!!
-    #         if self.q[c_ind].v <= self.q[ind].v:
-    #             break
+        ind = 0
+        while ind * 2 + 1 < len(self.q):
+            c_ind = 2 * ind + 1
+            c_ind2 = 2 * ind + 2
+            if c_ind2 < len(self.q):
+                # !!! Sort Conditions !!!
+                if self.desc:
+                    _, c_ind = max((self.q[c_ind].v, c_ind), (self.q[c_ind2].v, c_ind2))
+                else:
+                    _, c_ind = min((self.q[c_ind].v, c_ind), (self.q[c_ind2].v, c_ind2))
 
-    #         self.q[c_ind], self.q[ind] = self.q[ind], self.q[c_ind]
-    #         self.id_to_ind[self.q[ind].id] = ind
-    #         self.id_to_ind[self.q[c_ind].id] = c_ind
+            # !!! Sort Conditions !!!
+            if (self.desc and self.q[c_ind].v <= self.q[ind].v) or (
+                not self.desc and self.q[c_ind].v >= self.q[ind].v
+            ):
+                break
 
-    #         ind = c_ind
+            self.q[c_ind], self.q[ind] = self.q[ind], self.q[c_ind]
+            self.id_to_ind[self.q[ind].id] = ind
+            self.id_to_ind[self.q[c_ind].id] = c_ind
 
-    #     self.q = self.q[1:]
-    #     return item
+            ind = c_ind
+
+        return item
 
     def remove(self, _id):
         pass
@@ -77,5 +82,5 @@ class PriorityQueue:
         ind = self.id_to_ind[_id]
         return self.q[ind]
 
-    def get_top(self) -> Item:
+    def top(self) -> Item:
         return self.q[0]
