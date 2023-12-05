@@ -14,6 +14,7 @@ class PriorityQueue:
         self.update(item)
 
     def update(self, item: Item):
+        """Update the existing item. If Id is not found, push item."""
         ind = None
         if item.id in self.id_to_ind:
             ind = self.id_to_ind[item.id]
@@ -37,7 +38,7 @@ class PriorityQueue:
 
             ind = p_ind
 
-    def pop(self):
+    def pop(self) -> Item:
         if len(self.q) == 0:
             return None
 

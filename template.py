@@ -1,33 +1,39 @@
-import logging
 import sys
 
 sys.setrecursionlimit(10**7)
 
 
 def read_int():
-    return int(input())
+    return int(sys.stdin.readline())
 
 
 def read_ints():
-    return list(map(int, input().split(" ")))
+    return list(map(int, sys.stdin.readline().split(" ")))
 
 
 def read_float():
-    return float(input())
+    return float(sys.stdin.readline())
 
 
 def read_floats():
-    return list(map(float, input().split(" ")))
+    return list(map(float, sys.stdin.readline().split(" ")))
 
 
-def get_logger(debug=True) -> logging.Logger:
+def get_logger(debug=True):
+    if not debug:
+
+        class c:
+            def debug(self, a):
+                pass
+
+        return c()
+
+    import logging
+
     FORMAT = "[%(funcName)s:%(lineno)s] %(message)s"
-    log_level = logging.CRITICAL
-    if debug:
-        log_level = logging.DEBUG
 
     logger = logging.getLogger("")
-    logger.setLevel(log_level)
+    logger.setLevel(logging.DEBUG)
     logger.propagate = False
 
     handler = logging.StreamHandler(sys.stdout)
