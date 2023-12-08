@@ -49,6 +49,10 @@ class PriorityQueue:
         self.id_to_ind[self.q[0].id] = 0
         self.q.pop()
 
+        if len(self.q) == 0:
+            self.id_to_ind = {}
+            return item
+
         ind = 0
         while ind * 2 + 1 < len(self.q):
             c_ind = 2 * ind + 1

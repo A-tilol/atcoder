@@ -45,4 +45,4 @@ def get_logger(debug=True):
 
 
 # -------------------------------
-log = get_logger(True)
+log = get_logger(False)
