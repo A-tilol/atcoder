@@ -45,4 +45,8 @@ def get_logger(debug=True):
 
 
 # -------------------------------
-log = get_logger(False)
+log = get_logger(True)
+
+
+"""test cases
+"""
