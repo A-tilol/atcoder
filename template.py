@@ -2,50 +2,27 @@ import sys
 
 sys.setrecursionlimit(10**7)
 
-
-def read_int():
-    return int(sys.stdin.readline())
-
-
-def read_ints():
-    return list(map(int, sys.stdin.readline().split(" ")))
-
-
-def read_float():
-    return float(sys.stdin.readline())
-
-
-def read_floats():
-    return list(map(float, sys.stdin.readline().split(" ")))
+read_int = lambda: int(sys.stdin.readline())
+read_ints = lambda: list(map(int, sys.stdin.readline().split(" ")))
+read_float = lambda: float(sys.stdin.readline())
+read_floats = lambda: list(map(float, sys.stdin.readline().split(" ")))
 
 
 def get_logger(debug=True):
     if not debug:
-
-        class c:
-            def debug(self, a):
-                pass
-
-        return c()
-
+        return type("Dummy", (object,), {"debug": lambda self, a: None})()
     import logging
-
-    FORMAT = "[%(funcName)s:%(lineno)s] %(message)s"
 
     logger = logging.getLogger("")
     logger.setLevel(logging.DEBUG)
-    logger.propagate = False
-
     handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.DEBUG)
-    handler.setFormatter(logging.Formatter(FORMAT))
+    handler.setFormatter(logging.Formatter("[%(funcName)s:%(lineno)s] %(message)s"))
     logger.addHandler(handler)
-
     return logger
 
 
 # -------------------------------
-log = get_logger(True)
+log = get_logger()
 
 
 """test cases
