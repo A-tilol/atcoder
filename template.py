@@ -1,7 +1,6 @@
 import sys
 
 sys.setrecursionlimit(10**7)
-
 read_int = lambda: int(sys.stdin.readline())
 read_ints = lambda: list(map(int, sys.stdin.readline().split(" ")))
 read_float = lambda: float(sys.stdin.readline())
