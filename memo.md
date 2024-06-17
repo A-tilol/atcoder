@@ -10,6 +10,7 @@
 
 - permutation -> itertools
 - queueから先頭要素を取り出す際にはcollections.dequeを使う. a = q[0] q = q[1:]は遅い
+  - 単にpop()はlistの方が速そう
 
 ### speed
 
@@ -18,6 +19,7 @@
   - JITコンパイル時に再起部分のコード展開を行っているためっぽい
   - `import pypyjit; pypyjit.set_param("max_unroll_recursion=-1")` で展開の深さを制限することで対応可能
   - Cpythonで提出した方が速いこともある
+  - 深さ10^6以上はスタックを使用したDFSしないとTLEする
 - 文字列はイミュータブルなので結合の繰り返しは避ける
 
 ## Check List
