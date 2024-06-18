@@ -6,17 +6,17 @@ class SegTree:
 
         Args:
             n (int): 対象の個数
-            init_v (int, float): 初期値
-            operator (function): 2項演算子
-                max: max
-                min: min
-                sum: lambda a, b: a + b
+            init_v: 初期値
+            operator: 2項演算子
+                最大値: max
+                最小値: min
+                合計値: lambda a, b: a + b
         """
         self.n = n
         self.init_v = init_v
         self.op = operator
-        self.a = [init_v] * (2 * 2 ** (n - 1).bit_length())
-        self.l_n = len(self.a) // 2  # 葉の数
+        self.l_n = 1 << (n - 1).bit_length()  # 葉の数
+        self.a = [init_v] * (2 * self.l_n)
 
     def update(self, i: int, v: int):
         """一点更新
@@ -31,7 +31,7 @@ class SegTree:
         self.a[i] = v
 
         while i > 1:
-            i //= 2
+            i >>= 1
             self.a[i] = self.op(self.a[2 * i], self.a[2 * i + 1])
 
     def query(self, L: int, r: int):
@@ -48,8 +48,8 @@ class SegTree:
             if not r & 1:
                 ret = self.op(ret, self.a[r])
                 r -= 1
-            L //= 2
-            r //= 2
+            L >>= 1
+            r >>= 1
 
         return ret
 
@@ -72,7 +72,7 @@ class LazySegTree:
         Args:
             n (int): 対象の個数
             init_v: 初期値
-            operator: 構築する木に対応する2項演算子
+            operator: 2項演算子
                 最大値: max
                 最小値: min
                 合計値: lambda a, b: a + b
@@ -80,8 +80,8 @@ class LazySegTree:
         self.n = n
         self.init_v = init_v
         self.op = operator
-        self.a = [init_v] * (2 * 2 ** (n - 1).bit_length())
-        self.l_n = len(self.a) // 2
+        self.l_n = 1 << (n - 1).bit_length()  # 葉の数
+        self.a = [init_v] * (2 * self.l_n)
 
     def set_leaves(self, arr: list):
         """葉の値を設定"""
@@ -93,23 +93,23 @@ class LazySegTree:
         """閉区間 [L, r] の葉の値を取得"""
         return self.a[self.l_n : self.l_n + self.n]
 
-    def set_leaf_v(self, i: int, v):
+    def set_leaf(self, i: int, v):
         """指定した葉の値を更新"""
 
         i += self.l_n - 1
         self.a[i] = v
 
-    def get_leaf_v(self, i: int):
+    def get_leaf(self, i: int):
         """上位ノードを考慮した葉の値を取得"""
 
         ret = 0
         i += self.l_n - 1
         while i > 0:
             ret += self.a[i]
-            i //= 2
+            i >>= 1
         return ret
 
-    def get_leaf_v_as_is(self, i: int):
+    def get_leaf_as_is(self, i: int):
         """現時点で葉に設定されている値を取得"""
 
         return self.a[self.l_n - 1 + i]
@@ -126,14 +126,14 @@ class LazySegTree:
             if not r & 1:
                 self.a[r] = self.op(self.a[r], v)
                 r -= 1
-            L //= 2
-            r //= 2
+            L >>= 1
+            r >>= 1
 
     def update_whole_leaves(self):
         """内部ノードに蓄積された更新をすべての葉に反映し、内部ノードを初期化"""
 
         for i in range(1, self.n + 1):
-            self.a[self.l_n + i - 1] = self.get_leaf_v(i)
+            self.a[self.l_n + i - 1] = self.get_leaf(i)
 
         self.a[: self.l_n] = [self.init_v] * self.l_n
 
