@@ -19,7 +19,7 @@ class SegTree:
         self.a = [init_v] * (2 * self.l_n)
 
     def update(self, i: int, v: int):
-        """一点更新
+        """一点更新 0-indexed
 
         Args:
             i (int): 更新する対象のインデックス
@@ -27,7 +27,7 @@ class SegTree:
             vis (bool, optional): Trueのときツリーを可視化する. Defaults to False.
         """
 
-        i += self.l_n - 1
+        i += self.l_n
         self.a[i] = v
 
         while i > 1:
@@ -35,10 +35,10 @@ class SegTree:
             self.a[i] = self.op(self.a[2 * i], self.a[2 * i + 1])
 
     def query(self, L: int, r: int):
-        """閉区間 [L, r] に対するクエリ結果を返す"""
+        """半開区間 [L, r) に対するクエリ結果を返す 0-indexed"""
 
         ret = self.init_v
-        L += self.l_n - 1
+        L += self.l_n
         r += self.l_n - 1
 
         while L <= r:
@@ -90,34 +90,34 @@ class LazySegTree:
             self.a[self.l_n + i] = arr[i]
 
     def get_leaves(self, L: int, r: int) -> list:
-        """閉区間 [L, r] の葉の値を取得"""
-        return self.a[self.l_n : self.l_n + self.n]
+        """半開区間 [L, r) の葉の値を取得"""
+        return self.a[self.l_n + L : self.l_n + r]
 
     def set_leaf(self, i: int, v):
-        """指定した葉の値を更新"""
+        """指定した葉の値を更新 0-indexed"""
 
-        i += self.l_n - 1
+        i += self.l_n
         self.a[i] = v
 
     def get_leaf(self, i: int):
-        """上位ノードを考慮した葉の値を取得"""
+        """上位ノードを考慮した葉の値を取得 0-indexed"""
 
         ret = 0
-        i += self.l_n - 1
+        i += self.l_n
         while i > 0:
             ret += self.a[i]
             i >>= 1
         return ret
 
     def get_leaf_as_is(self, i: int):
-        """現時点で葉に設定されている値を取得"""
+        """現時点で葉に設定されている値を取得 0-indexed"""
 
-        return self.a[self.l_n - 1 + i]
+        return self.a[self.l_n + i]
 
     def update_range(self, L: int, r: int, v):
-        """閉区間 [L, r] に対して値を更新する。該当ノードのみ更新される"""
+        """半開区間 [L, r] に対して値を更新する。該当ノードのみ更新される 0-indexed"""
 
-        L += self.l_n - 1
+        L += self.l_n
         r += self.l_n - 1
         while L <= r:
             if L & 1:
@@ -132,8 +132,8 @@ class LazySegTree:
     def update_whole_leaves(self):
         """内部ノードに蓄積された更新をすべての葉に反映し、内部ノードを初期化"""
 
-        for i in range(1, self.n + 1):
-            self.a[self.l_n + i - 1] = self.get_leaf(i)
+        for i in range(self.n):
+            self.a[self.l_n + i] = self.get_leaf(i)
 
         self.a[: self.l_n] = [self.init_v] * self.l_n
 
