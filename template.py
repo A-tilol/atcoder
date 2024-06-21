@@ -22,19 +22,7 @@ def get_logger(debug=True):
 
 
 # -------------------------------
-log = get_logger(False)
-
-N = read_int()
-a = read_ints()
-
-s = sorted(set(a))
-d = {}
-for i, e in enumerate(s):
-    d[e] = i + 1
-
-for i in range(N):
-    a[i] = d[a[i]]
-print(*a)
+log = get_logger()
 
 """test cases
 """

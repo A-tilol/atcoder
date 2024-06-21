@@ -18,7 +18,7 @@ class SegTree:
         self.l_n = 1 << (n - 1).bit_length()  # 葉の数
         self.a = [init_v] * (2 * self.l_n)
 
-    def update(self, i: int, v: int):
+    def update(self, i: int, v):
         """一点更新 0-indexed
 
         Args:
@@ -33,6 +33,10 @@ class SegTree:
         while i > 1:
             i >>= 1
             self.a[i] = self.op(self.a[2 * i], self.a[2 * i + 1])
+
+    def get(self, i: int):
+        """葉の値を取得 0-indexed"""
+        return self.a[self.l_n + i]
 
     def query(self, L: int, r: int):
         """半開区間 [L, r) に対するクエリ結果を返す 0-indexed"""
