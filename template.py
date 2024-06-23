@@ -22,7 +22,9 @@ def get_logger(debug=True):
 
 
 # -------------------------------
-log = get_logger()
+log = get_logger(False)
+
 
 """test cases
+
 """
