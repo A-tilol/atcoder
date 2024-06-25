@@ -5,6 +5,7 @@
 解けなかったやつ
 
 - [ ] [Square869120Contest #6 B - AtCoder Markets](https://atcoder.jp/contests/s8pc-6/tasks/s8pc_6_b)
+- [ ] [AtCoder Beginner Contest 023 D - 射撃王](https://atcoder.jp/contests/abc023/tasks/abc023_d)
 
 ## DP
 
