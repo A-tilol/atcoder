@@ -10,6 +10,9 @@ class PriorityQueue:
         self.q = []
         self.desc = Descending
 
+    def __len__(self):
+        return len(self.q)
+
     def push(self, item: Item):
         self.update(item)
 
@@ -80,6 +83,9 @@ class PriorityQueue:
 
     def remove(self, _id):
         pass
+
+    def contains(self, _id):
+        return _id in self.id_to_ind
 
     def get(self, _id) -> Item:
         if _id not in self.id_to_ind:
