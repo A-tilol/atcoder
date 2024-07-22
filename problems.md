@@ -10,6 +10,7 @@
 - [ ] [45 AOJ 2199 - 差分パルス符号変調](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2199&lang=jp)
 - [ ] 47
 - [ ] 48
+- [ ] [49 DPL_2_A - 巡回セールスマン問題](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_2_A&lang=ja)
 
 ## DP
 
