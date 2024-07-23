@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "string": "cpp",
+        "vector": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "new": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "type_traits": "cpp"
+    }
+}
