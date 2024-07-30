@@ -9,6 +9,7 @@ class PriorityQueue:
         self.id_to_ind = {}
         self.q = []
         self.desc = Descending
+        self.op = max if self.desc else min
 
     def __len__(self):
         return len(self.q)
@@ -21,7 +22,7 @@ class PriorityQueue:
         ind = None
         if item.id in self.id_to_ind:
             ind = self.id_to_ind[item.id]
-            self.q[ind] = item
+            self.q[ind].v = self.op(self.q[ind].v, item.v)
         else:
             self.q.append(item)
             ind = len(self.q) - 1
