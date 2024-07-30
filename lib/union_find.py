@@ -12,6 +12,4 @@ class UnionFind:
         return self.root(x) == self.root(y)
 
     def unite(self, x, y):
-        x = self.root(x)
-        y = self.root(y)
-        self.par[x] = y
+        self.par[self.root(x)] = self.root(y)
