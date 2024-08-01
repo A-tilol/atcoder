@@ -8,9 +8,10 @@
 - [ ] [AtCoder Beginner Contest 023 D - 射撃王](https://atcoder.jp/contests/abc023/tasks/abc023_d)
 - [ ] [JOI 2008 本選 3 - ダーツ](https://atcoder.jp/contests/joi2008ho/tasks/joi2008ho_c)
 - [ ] [45 AOJ 2199 - 差分パルス符号変調](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2199&lang=jp)
-- [ ] 47
-- [ ] 48
+- [ ] [47 JOI 2015 本選 2 - ケーキの切り分け 2](https://atcoder.jp/contests/joi2015ho/tasks/joi2015ho_b)
+- [ ] [48 AOJ 1611 ダルマ落とし](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1611&lang=jp)
 - [ ] [49 DPL_2_A - 巡回セールスマン問題](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_2_A&lang=ja)
+- [ ] [84 JOI 2012 本選 4 - 釘](https://atcoder.jp/contests/joi2012ho/tasks/joi2012ho4)
 
 ## DP
 
